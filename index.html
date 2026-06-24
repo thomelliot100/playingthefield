@@ -489,8 +489,8 @@ function drawBatsman(svg,hd){
   sprite(svg,'batsman.png', S.x, S.y, 36, SPRITE.bat.w, SPRITE.bat.h, hd==='L');
 }
 function drawBowler(svg){
-  // offset just left of the stumps, as a bowler runs in beside the wicket
-  sprite(svg,'bowler.png', Bp.x-9, Bp.y, 30, SPRITE.bowl.w, SPRITE.bowl.h, false);
+  // offset clearly left of the stumps, as a bowler runs in beside the wicket
+  sprite(svg,'bowler.png', Bp.x-15, Bp.y, 30, SPRITE.bowl.w, SPRITE.bowl.h, false);
 }
 
 function drawPitch(svg,hd,theme){
