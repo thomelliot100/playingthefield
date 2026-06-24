@@ -22,12 +22,12 @@
   body{
     font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
     background:radial-gradient(circle at 50% -10%, #14542c, #0a3a1d 70%);
-    color:var(--cream); min-height:100vh;
+    color:var(--cream); height:100vh; height:100dvh; overflow:hidden;
     display:flex;flex-direction:column;align-items:center;
-    padding:max(14px, env(safe-area-inset-top)) 12px max(28px, env(safe-area-inset-bottom));
+    padding:max(8px, env(safe-area-inset-top)) 10px max(8px, env(safe-area-inset-bottom));
     overscroll-behavior:none;
   }
-  .wrap{width:100%;max-width:480px}
+  .wrap{width:100%;max-width:480px;flex:1;min-height:0;display:flex;flex-direction:column}
   h1{font-size:1.5rem;margin:.2em 0 .1em;letter-spacing:.5px;text-align:center}
   h1 .em{color:var(--gold)}
   .tag{text-align:center;color:#cfe9d6;font-size:.82rem;margin:0 0 12px}
@@ -82,6 +82,14 @@
   .fieldwrap{position:relative;width:100%}
   svg{width:100%;height:auto;display:block;touch-action:none;border-radius:14px}
   #field{cursor:grab} #field:active{cursor:grabbing}
+
+  /* --- fit the whole app to the screen, no page scroll --- */
+  section.screen{flex:1;min-height:0;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden}
+  #landing{justify-content:center}
+  #game>.card, #learn>.card{flex:1;min-height:0;display:flex;flex-direction:column;margin-bottom:0}
+  #game .fieldwrap, #learn .fieldwrap{flex:1 1 auto;min-height:90px;display:flex;align-items:center;justify-content:center;margin:4px 0}
+  #game .fieldwrap>svg, #learn .fieldwrap>svg{width:100%;height:100%}
+  #learn .info{flex:0 0 auto;max-height:30vh;overflow-y:auto}
 
   .answers{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
   .answers button{padding:13px 6px;font-size:.92rem;background:#0d4527;color:#fff;
@@ -290,7 +298,7 @@
     </div>
   </section>
 
-  <p class="credit">Positions are shown for the chosen batter's stance · off &amp; leg sides flip with handedness</p>
+  <p class="credit" id="credit">Positions are shown for the chosen batter's stance · off &amp; leg sides flip with handedness</p>
 </div>
 
 <!-- summary overlay -->
@@ -591,7 +599,8 @@ const $=s=>document.querySelector(s);
 const screens={landing:$('#landing'),home:$('#home'),game:$('#game'),learn:$('#learn'),plans:$('#plans')};
 function show(name){
   for(const k in screens)screens[k].classList.toggle('hide',k!==name);
-  $('#appHeader').classList.toggle('hide', name==='landing');
+  $('#appHeader').classList.toggle('hide', name==='landing'||name==='game'||name==='learn');
+  $('#credit').classList.toggle('hide', !(name==='home'||name==='plans'));
 }
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
 function poolFor(lv){return POSITIONS.filter(p=>p.level<=lv);}
