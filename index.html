@@ -737,7 +737,7 @@ function reveal(p, good){
   nb.classList.remove('hide');
   game._advanced=false;
   clearTimeout(game._t);
-  game._t=setTimeout(advance, good?3600:4600);
+  game._t=setTimeout(advance, 10000); // 10s to read the tip — tap "Next ball" to skip ahead
 }
 function advance(){
   if(!game||game._advanced) return;
